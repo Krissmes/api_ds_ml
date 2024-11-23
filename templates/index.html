@@ -6,7 +6,20 @@
     <body>
         <h2>Joki šeit!</h2>
 
+        {%block saturs%}
+        
         <p>{{joks}}</p>
         <img src="{{bilde}}">
+        <form method="post">
+            <select name="kategorijas">
+                {% for x in kategorijas %}
+                    <option value = {{x}}> {{x}}</option>
+                {%endfor%}
+            </select>
+            <input type="submit", value="izvelies joku"> 
+        </form>
+        
+        {%endblock%}
+        
     </body>
 </html>
