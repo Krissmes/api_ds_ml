@@ -3,6 +3,7 @@ import requests
 
 
 
+
 app = Flask(__name__)
 
 @app.route("/", methods=["POST","GET"])
@@ -22,8 +23,14 @@ def index():
 def teksta_izvele():
     atbilde = requests.get("https://api.chucknorris.io/jokes/random")
     joks = atbilde.json()
-    if request.method == "POST" :
-        search_text = request.form
+    
+    # if request.method == "POST" :
+    #     search_text = request.form["izvelies_tekstu"]
+    #     atbilde = request.get("https://api.chucknorris.io/jokes/search?query={search_text}")
+
+    return render_template("teksta_izvele.html", joks = joks["value"], bilde = joks["icon_url"]  )
+    
+
 
 
 
