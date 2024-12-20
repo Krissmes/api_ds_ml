@@ -1,5 +1,5 @@
-from flask import Flask, request, render_template
-import requests
+from flask import Flask, request, render_template, jsonify
+import requests, random
 
 
 
@@ -24,15 +24,27 @@ def teksta_izvele():
     atbilde = requests.get("https://api.chucknorris.io/jokes/random")
     joks = atbilde.json()
     
-    # if request.method == "POST" :
-    #     search_text = request.form["izvelies_tekstu"]
-    #     atbilde = request.get("https://api.chucknorris.io/jokes/search?query={search_text}")
+    if request.method == "POST" :
+        search_text = request.form["izvelies_tekstu"]
+        atbilde = requests.get(f"https://api.chucknorris.io/jokes/search?query={search_text}")
+        joks = atbilde.json()
+        print(joks)
 
-    return render_template("teksta_izvele.html", joks = joks["value"], bilde = joks["icon_url"]  )
-    
+        return render_template("teksta_izvele.html", joks = joks["result"][random.randint(0, joks["total"])]["value"] )
+    return render_template("teksta_izvele.html", joks = joks["value"], bilde = joks["icon_url"])
 
 
+@app.route("/jschats")
+def chats():
+    return render_template("chats.html")
 
+@app.route("/jschats/suutiit", methods = ["POST"])
+def suutiit():
+    sanemtais = request.json
+    with open("chataZinas.txt", "a") as f:
+        f.write(sanemtais["OK"])
+    print(sanemtais)
+    return jsonify("OK")
 
 if __name__ == "__main__":
     app.run(port=5000)

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="{{url_for('static', filename = 'funkcijas.js')}}"></script>
     </head>
     <body>
 
         <a href="/">kategorijas</a>
         <a href="/teksta_izvele">teksts</a>
+        <a href="/jschats">čatiņš</a>
+
+        {%block saturs%}
+        
 
         <h2>Joki šeit!</h2>
 
-        {%block saturs%}
         
         <p>{{joks}}</p>
         <img src="{{bilde}}">
